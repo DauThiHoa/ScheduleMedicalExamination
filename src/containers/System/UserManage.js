@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserManage.scss';
 import { getAllUsers } from '../../services/userService';
-
+import ModalUser from './ModalUser';
 class UserManage extends Component {
     //check ham constructor
     constructor(props) {
         super(props);
         this.state = {
-            arrUsers: []
+            arrUsers: [],
+            isOpenModalUser: false,
         }
     }
 
@@ -22,28 +23,47 @@ class UserManage extends Component {
             this.setState({
                 arrUsers: response.data.users
             })
-            // , () => {
-            //     console.log('check state users :', this.state.arrUsers);
-            //   });
-            // console.log('check state users1 :', this.state.arrUsers);//[]
         }
-        // console.log('get user from node.js:', response)
+    }
+    handleAddNewUser = () =>{
+        this.setState({
+            isOpenModalUser: true,
+        })
+    }
+    toggleUserModal = () =>{
+        this.setState({
+            isOpenModalUser: !this.state.isOpenModalUser,
+        })
     }
 
     /** life cycle
      * Run component
      * 1. Run construct -> init state
-     * 2. Did mount (set state)
-     * 3. Render
+     * 2. Did mount (set state):born: unmount
+     * 3. Render(re-render)
     */
 
     render() {
         let arrUsers = this.state.arrUsers;
+        console.log(arrUsers)
+        //properties: nested
         return (
             <div className="users-container">
-                <div className='title text-center'> Manage users with Eric</div>
-                <div className='users-table mt-3 mx-1'>
-                    <table id='customers'>
+                <ModalUser
+                isOpen = {this.state.isOpenModalUser}
+                toggleFromParent = {this.toggleUserModal}
+                test= {'abc'}
+                />
+                <div className="title text-center"> Manage users with Eric</div>
+                <div className="mx-1">
+                    <button
+                     className="btn-btn-primary px-3"
+                     onClick ={() => this.handleAddNewUser()}
+                     ><i className='fas fa-plus'></i> Add new users</button>
+
+                </div>
+                <div className="users-table mt-3 mx-1">
+                    <table id="customers">
                         <tr>
                             <th>Email</th>
                             <th>Frist name</th>
@@ -53,7 +73,6 @@ class UserManage extends Component {
                         </tr>
 
                         {arrUsers && arrUsers.map((item, index) => {
-                            console.log('eric check map', item, index)
                             return (
                                 <tr>
                                     <td>{item.email}</td>
