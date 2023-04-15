@@ -1,5 +1,6 @@
 export const path = {
     HOME: '/',
+    HOMEPAGE: '/home',
     LOGIN: '/login', // DUONG LINK HIEN THI TOI FILE
     LOG_OUT: '/logout',
     SYSTEM: '/system'
