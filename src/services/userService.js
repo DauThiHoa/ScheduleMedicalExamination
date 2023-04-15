@@ -19,6 +19,17 @@ const createNewUserService = (data) => {
 const deleteUserService = (userId) => {
     console.log('userId',userId);
     return axios.delete(`/api/delete-user?id=${userId}`)
+    // return axios.delete(`/api/delete-user`,{id: userId})
+
+    // return axios.delete('/api/delete-user',{
+    //     // headers: {
+    //     //     Authorization: authorizationToken 
+    //     // }, 
+    //     data:{
+    //         id: userId
+    //     }
+        
+    // });
 }
 export {
     handleLoginApi,
