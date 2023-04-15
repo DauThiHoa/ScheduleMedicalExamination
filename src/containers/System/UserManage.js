@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserManage.scss';
-import { getAllUsers, createNewUserService, deleteUserService } from '../../services/userService';
+import { getAllUsers, createNewUserService, deleteUserService, editUserService } from '../../services/userService';
 import ModalUser from "./ModalUser";
-import {emitter} from "../../utils/emitter";
+import ModalEditUser from './ModalEditUser';
+import { emitter } from "../../utils/emitter";
+
 class UserManage extends Component {
     //check ham constructor
     constructor(props) {
@@ -12,6 +14,8 @@ class UserManage extends Component {
         this.state = {
             arrUsers: [],
             isOpenModalUser: false,
+            isOpenModalEditUser: false,
+            userEdit: {}
         }
     }
 
@@ -37,6 +41,11 @@ class UserManage extends Component {
             isOpenModalUser: !this.state.isOpenModalUser,
         })
     }
+    toggleUserEditModal = () => {
+        this.setState({
+            isOpenModalEditUser: !this.state.isOpenModalEditUser,
+        })
+    }
     createNewUser = async (data) => {
         try {
             let response = await createNewUserService(data);
@@ -58,21 +67,36 @@ class UserManage extends Component {
         console.log('click delete', user)
         try {
             let res = await deleteUserService(user.id)
-            if(res && res?.data.errCode === 0){
+            if (res && res?.data.errCode === 0) {
                 await this.getAllUsersFromReact();
-            }else{
+            } else {
                 alert(res?.data.errMessage)
             }
         } catch (e) {
             console.log(e);
         }
-        // console.log('click delete', user)
-        // try{
-        //    let res = await deleteUserService(user.id);
-        //    console.log(res)
-        // }catch(e){
-        //     console.log(e);
-        // }
+    }
+    handleEditUser = (user) => {
+        console.log('check edit user', user)
+        this.setState({
+            isOpenModalEditUser: true,
+            userEdit: user
+        })
+    }
+    doEditUser = async (user)=>{
+        try{
+            let res = await editUserService(user);
+            if(res && res?.data.errCode === 0){
+                this.setState({
+                    isOpenModalEditUser: false
+                })
+               await this.getAllUsersFromReact()
+            }else{
+                alert(res?.data.errCode)
+            }
+        }catch(e){
+            console.log(e);
+        }
     }
     /** life cycle
      * Run component
@@ -92,6 +116,16 @@ class UserManage extends Component {
                     toggleFromParent={this.toggleUserModal}
                     createNewUser={this.createNewUser}
                 />
+                {
+                    this.state.isOpenModalEditUser && 
+                    <ModalEditUser
+                    isOpen={this.state.isOpenModalEditUser}
+                    toggleFromParent={this.toggleUserEditModal}
+                    currentUser={this.state.userEdit}
+                    editUser={this.doEditUser}
+                />
+                }
+                
                 <div className="title text-center"> Manage users with Eric</div>
                 <div className="mx-1">
                     <button
@@ -119,7 +153,7 @@ class UserManage extends Component {
                                         <td>{item.lastName}</td>
                                         <td>{item.address}</td>
                                         <td>
-                                            <button className='btn-edit' ><i className="fas fa-pencil-alt"></i></button>
+                                            <button className='btn-edit' onClick={() => this.handleEditUser(item)}><i className="fas fa-pencil-alt"></i></button>
                                             <button className='btn-delete' onClick={() => this.handleDeleteUser(item)}><i className="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
