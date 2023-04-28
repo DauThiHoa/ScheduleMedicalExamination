@@ -10,11 +10,12 @@ import {changeLanguageApp} from '../../store/actions'
 class HomeHeader extends Component {
  
     changeLanguage = (language) =>{
-this.props.changeLanguageAppRedux(language)
+        this.props.changeLanguageAppRedux(language)
         //fire redux event: actions
     }
     render() {
-        let language = this.props.language;        
+        let language = this.props.language;     
+        console.log ('check userInfo : ' , this.props.userInfo)   
         return (
             <React.Fragment>
                 <div className="home-header-container">
@@ -113,6 +114,7 @@ this.props.changeLanguageAppRedux(language)
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
         language: state.app.language,
 // inject
     };

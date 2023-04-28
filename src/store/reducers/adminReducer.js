@@ -1,33 +1,37 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
+    // LUU CAC THUOC TINH CUA NGUOI DUNG ( GIOI TINH - CHUC DANH )
+   genders: [],
+   roles: [],
+   positions:[]
 }
 
-const appReducer = (state = initialState, action) => {
+const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
-            return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
+        // KIEM TRA TU KHOA 
+        // state => genders - roles - positions
+        case actionTypes.FETCH_GENDER_START:
+            console.log ('Hoi Dan It fire fetch gender start: ' , action)
+
+            return { 
+                ...state, 
             }
-        case actionTypes.ADMIN_LOGIN_FAIL:
-            return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        case actionTypes.PROCESS_LOGOUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
+            case actionTypes.FETCH_GENDER_SUCCESS:
+                let copyState = {...state};
+                copyState.genders = action.data;
+                console.log ('Hoi Dan It fire fetch gender start: ' , copyState)
+                return {
+                    ...copyState, 
+                }
+                case actionTypes.FETCH_GENDER_FAIDED:
+                    console.log ('Hoi Dan It fire fetch gender start: ' , action)
+                    return {
+                        ...state, 
+                    }
         default:
             return state;
     }
 }
 
-export default appReducer;
+export default adminReducer;

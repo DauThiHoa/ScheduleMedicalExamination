@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux'; 
 import Slider from 'react-slick';
 
 class OutStandingDoctor extends Component {
