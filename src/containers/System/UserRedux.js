@@ -5,6 +5,8 @@ import { LANGUAGES} from '../../utils';
 import * as actions from "../../store/actions";
 import './UserRedux.scss';
 import { forIn } from 'lodash';
+import TableManageUser from './Admin/TableManageUser';
+
 // import Lightbox from 'react-image-lightbox';
 // import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
@@ -19,6 +21,9 @@ class UserRedux extends Component {
                 roleArr: [],
                 previewImgURL:'',
                 isOpen: false,
+
+                // kiem tra xem da tao nguoi dung hay chua 
+                // isUserCreated: false,
 
                 // CAC THONG TIN CAN LUU THONG TIN NGUOI DUNG
                 email:'',
@@ -84,6 +89,23 @@ class UserRedux extends Component {
             })
         } 
 
+// Them thanh cong User => Set Lai cac vi tri rong
+        if (prevProps.listUsers !== this.props.listUsers){ 
+            this.setState ({ 
+                email:'',
+                password:'',
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                address: '',
+                gender: '',
+                position: '',
+                role: '',
+                avatar: '',    
+            })
+        } 
+
+
     }
 
 
@@ -116,6 +138,7 @@ class UserRedux extends Component {
         let isValid = this.checkValidateInput();
         // NEU THIEU DU LIEU => THOAT KHOI HAM
         if (isValid === false) return;
+ 
         // FIRE REDUX ACTION
         this.props.createNewUser({
             email: this.state.email,
@@ -128,6 +151,10 @@ class UserRedux extends Component {
             roleId: this.state.role,
             positionId: this.state.position,
         })
+        // setTimeout (() => {
+        //     this.props.fetchUserRedux ();
+        // }, 1000)
+         
         console.log ( 'hoi dan it vheck : ' + this.state);
     }
 
@@ -307,7 +334,7 @@ class UserRedux extends Component {
                                 </div>
                                  
                              </div>
-                             <div className='col-12 mt-3'>
+                             <div className='col-12 my-3'>
 
                                    <button className='btn btn-primary'
                                    onClick = {() => this.handleSaveUser()}
@@ -316,12 +343,17 @@ class UserRedux extends Component {
                                     <FormattedMessage id='manage-user.save'/></button>
                              </div>
                              
+                             <div  className='col-12 mb-5'>
+                                   <TableManageUser/>
+                             </div> 
+
                         </div>
 
                     </div>
                 
                 
                 </div>
+                  
                                     {/* {this.state.isOpen === true  && 
                 <Lightbox
                              mainSrc={this.state.previewImgURL} 
@@ -347,6 +379,7 @@ const mapStateToProps = state => {
         positionRedux: state.admin.positions,
 
         isLoadingGender: state.admin.isLoadingGender,
+        listUsers: state.admin.users
     };
 };
 
@@ -359,8 +392,12 @@ const mapDispatchToProps = dispatch => {
 
         getRoleStart: () => dispatch(actions.fetchRoleStart()),
 
-        createNewUser: (data) => dispatch(actions.createNewUser(data))
+        createNewUser: (data) => dispatch(actions.createNewUser(data)),
+
+        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart())
+
         // processLogout: () => dispatch(actions.processLogout()),
+
         // changeLanguageAppRedux: (language) => dispatch(actions.changeLanguageApp(language))
     };
 };

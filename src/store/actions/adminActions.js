@@ -1,5 +1,7 @@
 import actionTypes from './actionTypes';
-import { getAllCodeService, createNewUserService } from '../../services/userService';
+import { getAllCodeService, createNewUserService , getAllUsers
+, deleteUserService} from '../../services/userService';
+import { toast } from 'react-toastify';
 
 // LAY DANH SACH GIOI TINH TRONG BANG ALLCODE
 // export const fetchGenderStart = () => ({
@@ -76,6 +78,7 @@ export const fetchRoleStart = () => {
             if (res && res.data.errCode === 0 ) {
                 console.log('hoidanIt check get state: ' , getState)
                 dispatch(fetchRoleSuccess(res.data.data));
+
             }else {
                 dispatch(fetchRoleFaided ());
             }
@@ -104,9 +107,13 @@ export const createNewUser = (data) => {
         try { 
 
             let res = await createNewUserService (data) ;
-            if (res && res.data.errCode === 0 ) {
-                console.log('hoidanIt check get state: ' , getState)
+            if (res && res.data.errCode === 0 ) { 
+                // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+                toast.success("Create a new user success!")
+                
                 dispatch(saveUserSuccess( ));
+                // LOAD DU LIEU XUONG BANG BEN DUOI
+                dispatch(fetchAllUsersStart());
             }else {
                 dispatch(saveUserFailed ());
             }
@@ -125,3 +132,71 @@ export const saveUserSuccess = () => ({
 export const saveUserFailed = () => ({
     type: actionTypes.CREATE_USER_FAILDED
 })
+
+// HIEN THI THONG TIN NGUOI DUNG
+
+export const fetchAllUsersStart = (data) => { 
+    return async (dispatch, getState) => {
+        try { 
+
+            let res = await getAllUsers ("ALL") ;
+            if (res && res.data.errCode === 0 ) {
+                // LOAD LAI THE INPUT RONG  
+                console.log('hoidanIt check get state: ' , getState)
+                dispatch(fetchAllUsersSuccess(res.data.users.reverse()));
+            }else {
+                toast.error("Fetch all user error!")
+                dispatch(fetchAllUsersFailed ());
+            }
+        }catch(e){
+            toast.error("Fetch all user error!")
+            dispatch(fetchAllUsersFailed ());
+            console.log ('fetchAllUsersFailed error', e)
+        }
+    }
+
+}
+export const fetchAllUsersSuccess = (data) => ({
+    type: actionTypes.CREATE_ALL_USERS_SUCCESS, 
+    users: data
+})
+
+export const fetchAllUsersFailed = () => ({
+    type: actionTypes.CREATE_ALL_USERS_FAILDED
+})
+
+// xoa nguoi dung
+
+export const deleteUser = (userId) => { 
+    return async (dispatch, getState) => {
+        try { 
+
+            let res = await deleteUserService (userId) ;
+            if (res && res.data.errCode === 0 ) { 
+                // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+                toast.success("Delete the user success!")
+                
+                dispatch(deleteUsersSuccess( ));
+                // LOAD DU LIEU XUONG BANG BEN DUOI
+                dispatch(fetchAllUsersStart());
+            }else {
+                toast.error("Delete the user error!")
+                dispatch(deleteUsersFailed ());
+            }
+        }catch(e){
+            toast.error("Delete the user error!")
+            dispatch(deleteUsersFailed ());
+            console.log ('deleteUsersFailed error', e)
+        }
+    }
+
+}
+
+export const deleteUsersSuccess = () => ({
+    type: actionTypes.DELETE_USER_SUCCESS 
+})
+
+export const deleteUsersFailed = () => ({
+    type: actionTypes.DELETE_USER_FAILDED
+})
+

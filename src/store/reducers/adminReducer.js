@@ -5,7 +5,8 @@ const initialState = {
     // LUU CAC THUOC TINH CUA NGUOI DUNG ( GIOI TINH - CHUC DANH )
    genders: [],
    roles: [],
-   positions:[]
+   positions:[],
+   users: []
 }
 
 const adminReducer = (state = initialState, action) => {
@@ -62,6 +63,20 @@ const adminReducer = (state = initialState, action) => {
                                     return {
                                         ...state, 
                                     }
+                                    // User
+                                    case actionTypes.CREATE_ALL_USERS_SUCCESS: 
+                                    state.users = action.users; 
+                         
+                                        return {
+                                            ...state, 
+                                        }
+
+                                        case actionTypes.CREATE_ALL_USERS_FAILDED: 
+                                        state.users = []; 
+                             
+                                            return {
+                                                ...state, 
+                                            }
         default:
             return state;
     }
