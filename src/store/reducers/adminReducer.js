@@ -1,6 +1,7 @@
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    isLoadingGender: false,
     // LUU CAC THUOC TINH CUA NGUOI DUNG ( GIOI TINH - CHUC DANH )
    genders: [],
    roles: [],
@@ -11,24 +12,56 @@ const adminReducer = (state = initialState, action) => {
     switch (action.type) {
         // KIEM TRA TU KHOA 
         // state => genders - roles - positions
-        case actionTypes.FETCH_GENDER_START:
-            console.log ('Hoi Dan It fire fetch gender start: ' , action)
+        case actionTypes.FETCH_GENDER_START: 
+        state.isLoadingGender = true; 
 
             return { 
                 ...state, 
             }
-            case actionTypes.FETCH_GENDER_SUCCESS:
-                let copyState = {...state};
-                copyState.genders = action.data;
-                console.log ('Hoi Dan It fire fetch gender start: ' , copyState)
+            case actionTypes.FETCH_GENDER_SUCCESS: 
+            state.genders = action.data;
+            state.isLoadingGender = false;
+ 
                 return {
-                    ...copyState, 
+                    ...state, 
                 }
-                case actionTypes.FETCH_GENDER_FAIDED:
-                    console.log ('Hoi Dan It fire fetch gender start: ' , action)
+                case actionTypes.FETCH_GENDER_FAIDED: 
+                    state.genders = [];
+                    state.isLoadingGender = false;
+ 
                     return {
                         ...state, 
                     }
+
+                    // POSITION
+
+                    case actionTypes.FETCH_POSITION_SUCCESS: 
+                    state.positions = action.data; 
+         
+                        return {
+                            ...state, 
+                        }
+                        case actionTypes.FETCH_POSITION_FAIDED: 
+                            state.positions = []; 
+         
+                            return {
+                                ...state, 
+                            }
+
+                            // ROLE
+
+                            case actionTypes.FETCH_ROLE_SUCCESS: 
+                            state.roles = action.data; 
+                 
+                                return {
+                                    ...state, 
+                                }
+                                case actionTypes.FETCH_ROLE_FAIDED: 
+                                    state.roles = []; 
+                 
+                                    return {
+                                        ...state, 
+                                    }
         default:
             return state;
     }
