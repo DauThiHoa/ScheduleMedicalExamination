@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import { getAllCodeService, createNewUserService , getAllUsers
-, deleteUserService} from '../../services/userService';
+, deleteUserService , editUserService} from '../../services/userService';
 import { toast } from 'react-toastify';
 
 // LAY DANH SACH GIOI TINH TRONG BANG ALLCODE
@@ -198,5 +198,41 @@ export const deleteUsersSuccess = () => ({
 
 export const deleteUsersFailed = () => ({
     type: actionTypes.DELETE_USER_FAILDED
+})
+
+
+// SUA nguoi dung
+
+export const editAUser = (data) => { 
+    return async (dispatch, getState) => {
+        try { 
+
+            let res = await editUserService (data) ;
+            if (res && res.data.errCode === 0 ) { 
+                // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+                toast.success("Update the user success!")
+                
+                dispatch(editUsersSuccess( ));
+                // LOAD DU LIEU XUONG BANG BEN DUOI
+                dispatch(fetchAllUsersStart());
+            }else {
+                toast.error("Update the user error!")
+                dispatch(editUsersFailed ());
+            }
+        }catch(e){
+            toast.error("Update the user error!")
+            dispatch(editUsersFailed ());
+            console.log ('editUsersFailed error', e)
+        }
+    }
+
+}
+
+export const editUsersSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS 
+})
+
+export const editUsersFailed = () => ({
+    type: actionTypes.EDIT_USER_FAILDED
 })
 
