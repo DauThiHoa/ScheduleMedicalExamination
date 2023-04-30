@@ -1,6 +1,6 @@
 import actionTypes from './actionTypes';
 import { getAllCodeService, createNewUserService , getAllUsers
-, deleteUserService , editUserService} from '../../services/userService';
+, deleteUserService , editUserService , getTopDoctorHomeService} from '../../services/userService';
 import { toast } from 'react-toastify';
 
 // LAY DANH SACH GIOI TINH TRONG BANG ALLCODE
@@ -139,7 +139,8 @@ export const fetchAllUsersStart = (data) => {
     return async (dispatch, getState) => {
         try { 
 
-            let res = await getAllUsers ("ALL") ;
+            let res = await getAllUsers ("ALL") ;  
+
             if (res && res.data.errCode === 0 ) {
                 // LOAD LAI THE INPUT RONG  
                 console.log('hoidanIt check get state: ' , getState)
@@ -235,4 +236,31 @@ export const editUsersSuccess = () => ({
 export const editUsersFailed = () => ({
     type: actionTypes.EDIT_USER_FAILDED
 })
+ 
 
+//   let res1 = await getTopDoctorHomeService(3); 
+export const fetchTopDoctor = () => {
+    return async (dispatch, getState) => {
+        try { 
+            let res = await getTopDoctorHomeService ('');  
+            if (res && res.data.errCode === 0){
+                dispatch ({
+                    type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
+                    dataDoctors: res.data.data
+                })
+            }else {
+                dispatch ({
+                    type: actionTypes.FETCH_TOP_DOCTORS_FAILDED
+                })
+            }
+  
+            
+        }catch(e){
+            console.log(' FETCH_TOP_DOCTORS_FAILDED: ', e)
+            dispatch ({
+                type: actionTypes.FETCH_TOP_DOCTORS_FAILDED
+            })
+        }
+    }
+
+}

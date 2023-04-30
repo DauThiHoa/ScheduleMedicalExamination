@@ -29,11 +29,14 @@ const getAllCodeService = (inputType) => {
     //template string
     return axios.get(`/api/allcode?type=${inputType}`)
 }
+
+// LAY DANH SACH BAC SI MOI NHAT
+const getTopDoctorHomeService = (limit) => {
+    return axios.get (`/api/top-doctor-home?limit=${limit}`)
+}
 export {
     handleLoginApi,
-    getAllUsers,
-    createNewUserService,
-    deleteUserService,
-    editUserService,
-    getAllCodeService
+    getAllUsers, createNewUserService,
+    deleteUserService, editUserService,
+    getAllCodeService,getTopDoctorHomeService
 }
