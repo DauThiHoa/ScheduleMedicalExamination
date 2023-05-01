@@ -1,6 +1,7 @@
 import actionTypes from './actionTypes';
 import { getAllCodeService, createNewUserService , getAllUsers
-, deleteUserService , editUserService , getTopDoctorHomeService} from '../../services/userService';
+, deleteUserService , editUserService , getTopDoctorHomeService,
+getAllDoctors , saveDetailDoctorService} from '../../services/userService';
 import { toast } from 'react-toastify';
 
 // LAY DANH SACH GIOI TINH TRONG BANG ALLCODE
@@ -244,11 +245,13 @@ export const fetchTopDoctor = () => {
         try { 
             let res = await getTopDoctorHomeService ('');  
             if (res && res.data.errCode === 0){
+                 
                 dispatch ({
                     type: actionTypes.FETCH_TOP_DOCTORS_SUCCESS,
                     dataDoctors: res.data.data
                 })
             }else {
+                 
                 dispatch ({
                     type: actionTypes.FETCH_TOP_DOCTORS_FAILDED
                 })
@@ -256,9 +259,75 @@ export const fetchTopDoctor = () => {
   
             
         }catch(e){
+             
             console.log(' FETCH_TOP_DOCTORS_FAILDED: ', e)
             dispatch ({
                 type: actionTypes.FETCH_TOP_DOCTORS_FAILDED
+            })
+        }
+    }
+
+}
+
+//   let res1 = await getTopDoctorHomeService(3); 
+export const fetchAllDoctors = () => {
+    return async (dispatch, getState) => {
+        try { 
+            let res = await getAllDoctors ();  
+            if (res && res.data.errCode === 0){
+                dispatch ({
+                    type: actionTypes.FETCH_ALL_DOCTORS_SUCCESS,
+                    dataDr: res.data.data
+                })
+            }else {
+                dispatch ({
+                    type: actionTypes.FETCH_ALL_DOCTORS_FAILDED
+                })
+            }
+  
+            
+        }catch(e){
+            console.log(' FETCH_ALL_DOCTORS_FAILDED: ', e)
+            dispatch ({
+                type: actionTypes.FETCH_ALL_DOCTORS_FAILDED
+            })
+        }
+    }
+
+}
+ 
+
+//   TAO THONG TIN BAC SI
+export const saveDetailDoctor = (data) => {
+    return async (dispatch, getState) => {
+        try { 
+            let res = await saveDetailDoctorService (data); 
+            console.log('saveDetailDoctorService : ' , res) ;
+            console.log('errCode : ' , res.data.errCode) 
+
+            if (res && res.data.errCode === 0){
+                  // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+                  toast.success("Save Infor Detail Doctor success!")
+
+                dispatch ({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS
+                })
+            }else {
+                 // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+                  toast.error("Save Infor Detail Doctor error1!")
+                dispatch ({
+                    type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED
+                })
+            }
+  
+            
+        }catch(e){
+             // Hien Thi Tao Thong Bao Tao Nguoi Dung Thanh Cong
+             toast.error("Save Infor Detail Doctor error2!") 
+            console.log(' SAVE_DETAIL_DOCTOR_FAILDED: ', e)
+
+            dispatch ({
+                type: actionTypes.SAVE_DETAIL_DOCTOR_FAILDED
             })
         }
     }

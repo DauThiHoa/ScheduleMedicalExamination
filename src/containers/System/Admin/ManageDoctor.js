@@ -14,13 +14,9 @@ import 'react-markdown-editor-lite/lib/index.css';
 
 // Initialize a markdown parser
  
- import Select from 'react-select';
-
-const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-];
+ import Select from 'react-select'; 
+import { LANGUAGES } from '../../../utils';
+ 
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -33,15 +29,60 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOption : '',
             description: '',
+            listDoctors: []
         }
     }
 
     componentDidMount() { 
+        // GOI TIM TAT CAC CAC BAC SI
+        this.props.fetchAllDoctors()
 
     }
-    
+    // SUA DOI KET QUA CHAY CAU LENH ( TAT CA BAC SI ) => THANH BIEN MANG TRONG BANG SELECT
+    buildDataInputSelect = (inputData) => {
+
+        //  TAO MANG 
+        let result = [];
+        // Chuyen doi anh viet 
+        let {language} = this.props;
+        // Neu ket qua co tra ve gia tri
+        if ( inputData && inputData.length > 0){
+            inputData.map ((item, index) => {
+                let object = {};
+                let labelVi = `${item.lastName} ${item.firstName}`
+                let labelEn = `${item.firstName} ${item.lastName}`
+
+                // True => Tieng Viet | False => Tieng Anh
+                object.label = language === LANGUAGES.VI ? labelVi : labelEn;
+                //  LAY 1 BAC SI VOI BIEN (ID)
+                object.value = item.id;
+                // THEM VAO MANG
+                result.push (object)
+            })
+        }
+
+        return result;
+    }
+
     componentDidUpdate (prevProps,  prevState, snapshot) {
-        
+        //  KIEM TRA XEM KHI CHAY CHUONG TRINH NO SE CO GIA TRI KHAC VOI GIA TRI CU HAY KHONG 
+        if ( prevProps.allDoctors !== this.props.allDoctors){
+            // TAO 1 MANG DU LIEU HO TEN CAC BAC SI 
+            let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+            this.setState ({
+                // Set lai gia tri mang bang ket qua chay
+                listDoctors: dataSelect
+            })
+        }
+        //  Check Ngon ngu anh viet 
+        if ( prevProps.language !== this.props.language){
+              // TAO 1 MANG DU LIEU HO TEN CAC BAC SI 
+              let dataSelect = this.buildDataInputSelect(this.props.allDoctors);
+              this.setState ({
+                  // Set lai gia tri mang bang ket qua chay
+                  listDoctors: dataSelect
+              })
+        }
     }
 
  // Finish!
@@ -54,7 +95,15 @@ class ManageDoctor extends Component {
   
 
   handleSaveContentMarkdown = () => {
-    alert ('CLICK ME')
+    this.props.saveDetailDoctor ({ 
+// LUU THONG TIN CHI TIET CAC BAC SI
+               contentHTML: this.state.contentHTML,
+                contentMarkdown: this.state.contentMarkdown,
+                description: this.state.description,
+                // LAY SU LUA CHON TEN BAC SI DUOC THEM CHI TIET
+                doctorId: this.state.selectedOption.value
+    })
+
     console.log ('HOI DAN IT : ', this.state)
   }
   
@@ -70,6 +119,8 @@ class ManageDoctor extends Component {
         })
   }
     render() {  
+        console.log ('HOI DAN IT listDoctors : ', this.state)
+
         return ( 
             
             <div className='manage-doctor-container'> 
@@ -84,7 +135,7 @@ class ManageDoctor extends Component {
                          <Select
                                  value={this.state.selectedOption }
                                  onChange={this.handleChange}
-                                 options={options} 
+                                 options={this.state.listDoctors} 
                            />
 
                     </div>
@@ -127,14 +178,18 @@ class ManageDoctor extends Component {
 const mapStateToProps = state => {
     // LAY KET QUA THUC THI
     return {
-        listUsers: state.admin.users
+        // Chuyen doi ngon ngu Anh Viet
+        language: state.app.language,
+        // Lay tat ca danh sach cac bac si
+        allDoctors: state.admin.allDoctors
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
-        deleteUserRedux: (id) => dispatch(actions.deleteUser(id))
+        // fetchUserRedux: () => dispatch(actions.fetchAllUsersStart()),
+        saveDetailDoctor: (data) => dispatch(actions.saveDetailDoctor(data)), 
+        fetchAllDoctors: () => dispatch(actions.fetchAllDoctors()),
     };
 };
 
