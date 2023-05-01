@@ -15,8 +15,9 @@ import 'react-markdown-editor-lite/lib/index.css';
 // Initialize a markdown parser
  
  import Select from 'react-select'; 
-import { LANGUAGES } from '../../../utils';
- 
+import { CRUD_ACTIONS, LANGUAGES } from '../../../utils';
+ import { getDetailInforDoctor } from '../../../services/userService';
+
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -29,7 +30,8 @@ class ManageDoctor extends Component {
             contentHTML: '',
             selectedOption : '',
             description: '',
-            listDoctors: []
+            listDoctors: [],
+            hasOldData: false
         }
     }
 
@@ -92,25 +94,50 @@ class ManageDoctor extends Component {
         contentHTML: html,
     }) 
   } 
-  
-
+   
   handleSaveContentMarkdown = () => {
+    let {hasOldData} = this.state;
+
     this.props.saveDetailDoctor ({ 
 // LUU THONG TIN CHI TIET CAC BAC SI
                contentHTML: this.state.contentHTML,
                 contentMarkdown: this.state.contentMarkdown,
                 description: this.state.description,
                 // LAY SU LUA CHON TEN BAC SI DUOC THEM CHI TIET
-                doctorId: this.state.selectedOption.value
+                doctorId: this.state.selectedOption.value,
+                //  Doi cac 
+                action: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE
     })
 
     console.log ('HOI DAN IT : ', this.state)
   }
   
-   handleChange = selectedOption => {
+   handleChangeSelect = async selectedOption => {
     // console.log ('selectedOption  : ', selectedOption )
     this.setState({ selectedOption } );
-    // console.log ('Optiob Selected ', selectedOption )
+
+    // HAM LAY GIA TRI SELECT MINH CHON ( TEN BAC SI )
+    let res = await getDetailInforDoctor (selectedOption.value)
+    if ( res && res.data.errCode === 0 && res.data.data  && res.data.data.Markdown){
+        let markdown = res.data.data.Markdown;
+        this.setState ({
+            contentHTML: markdown.contentHTML,
+            contentMarkdown: markdown.contentMarkdown,
+            description: markdown.description, 
+            //  MAC DINH DE BIEN DA CO GIA TRI => bac si do da co thong tin mieu ta hay chua
+            hasOldData : true 
+        })
+    }else {
+        this.setState ({
+            contentHTML: '',
+            contentMarkdown: '',
+            description: '', 
+            //  MAC DINH DE BIEN DA CO GIA TRI => bac si do da co thong tin mieu ta hay chua
+            hasOldData : false
+        })
+    }
+    console.log ('selectedOption: ======== ', res.data.data )
+
   };
 
   handleOnChangeDesc = (event) => {
@@ -118,8 +145,9 @@ class ManageDoctor extends Component {
             description: event.target.value
         })
   }
-    render() {  
-        console.log ('HOI DAN IT listDoctors : ', this.state)
+    render() {   
+        // Xem nguoi dung da co thong tin hay chua
+        let {hasOldData} = this.state;
 
         return ( 
             
@@ -134,7 +162,7 @@ class ManageDoctor extends Component {
                         <label>Chọn bác sĩ</label>
                          <Select
                                  value={this.state.selectedOption }
-                                 onChange={this.handleChange}
+                                 onChange={this.handleChangeSelect}
                                  options={this.state.listDoctors} 
                            />
 
@@ -146,25 +174,31 @@ class ManageDoctor extends Component {
                             onChange={ (event) => this.handleOnChangeDesc(event)}
                             value={this.state.description}
                         >
-                            hhhhhhhhhhhhhh
+                            
                         </textarea> 
 
                     </div>
-
-                    </div>
+                    </div> 
                    
+
                     <div className='manage-doctor-editor'>
                     <MdEditor 
                         style={{ height: '500px' }} 
                         renderHTML={text => mdParser.render(text)} 
-                          onChange={this.handleEditorChange} />
+                          onChange={this.handleEditorChange} 
+                        //   LOAD DU LIEU => nEU CO BAM VAO TRONG TEN NGUOI DUNG => UPDATE 
+                          value={this.state.contentMarkdown}
+                          />
    
                     </div>
                       
                       <button 
                       onClick={() => this.handleSaveContentMarkdown()}
-                      className='save-content-doctor'>
-                        Lưu thông tin
+                      className= {hasOldData == true ? 'save-content-doctor' : "create-content-doctor"}>
+                          { hasOldData === true ?
+                              <span>Lưu thông tin </span> : <span>Tạo thông tin</span>
+                          
+                        }
                         </button>
             </div>
 
