@@ -53,7 +53,12 @@ class HomeHeader extends Component {
 
                     </div>
                 </div>
+
+
+                {this.props.isShowBanner === true && 
+                
                 <div className="home-header-banner">
+                    
                     <div className="content-up">
                         <div className="title1"><FormattedMessage id="banner.title1"/></div>
                         <div className="title2"><FormattedMessage id="banner.title2"/></div>
@@ -62,6 +67,7 @@ class HomeHeader extends Component {
                             <input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
                         </div>
                     </div>
+
                     <div className="content-down">
                         <div className="options">
                             <div className="option-child">
@@ -105,6 +111,7 @@ class HomeHeader extends Component {
                         </div>
                     </div>
                 </div>
+                }
             </React.Fragment>
         );
     }

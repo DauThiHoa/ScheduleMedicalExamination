@@ -3,7 +3,8 @@ export const path = {
     HOMEPAGE: '/home',
     LOGIN: '/login', // DUONG LINK HIEN THI TOI FILE
     LOG_OUT: '/logout',
-    SYSTEM: '/system'
+    SYSTEM: '/system',
+    DETAIL_DOCTOR: '/detail-doctor/:id' // DUONG LINK TOI TRANG CHI TIET BAC SI
 };
 
 export const LANGUAGES = {
