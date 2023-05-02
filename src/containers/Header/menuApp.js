@@ -17,10 +17,16 @@ export const adminMenu = [
                 //   ]
               },
 
-              {
-                name: 'menu.admin.manage-admin', link: '/system/user-admin' 
-              },
+              // {
+              //   name: 'menu.admin.manage-admin', link: '/system/user-admin' 
+              // },
               
+              { // KE HOACH QUAN LY KHAM BENH CUA BAC SI
+                
+                        name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule' 
+                     
+            } 
+            
             // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
         ]
     },
@@ -48,4 +54,19 @@ export const adminMenu = [
                
         ]
     },
+];
+
+
+// THANH MENU => BAC SI
+
+export const doctorMenu = [
+  {
+  name: 'menu.admin.manage-user', 
+      menus: [
+              {
+              name: 'menu.doctor.manage-schedule', link: '/doctor/manage-schedule' 
+            } ,
+          // { name: 'menu.system.system-parameter.header', link: '/system/system-parameter' },
+      ]
+  }  
 ];

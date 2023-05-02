@@ -333,3 +333,33 @@ export const saveDetailDoctor = (data) => {
     }
 
 }
+
+
+  //  LAY DANH SACH ALLCODE CAC H KHAM BENH
+//   let res1 = await getTopDoctorHomeService(3); 
+export const fetchAllScheduleTime = () => {
+    return async (dispatch, getState) => {
+        try { 
+            let res = await getAllCodeService ("TIME");  
+            if (res && res.data.errCode === 0){
+                dispatch ({
+                    type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_SUCCESS,
+                    dateTime: res.data.data
+                })
+            }else {
+                dispatch ({
+                    type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED
+                })
+            }
+  
+            
+        }catch(e){
+            console.log(' FETCH_ALLCODE_SCHEDULE_TIME_FAILDED: ', e)
+            dispatch ({
+                type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILDED
+            })
+        }
+    }
+
+}
+ 
