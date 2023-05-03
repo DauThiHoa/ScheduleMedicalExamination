@@ -4,7 +4,7 @@ import HomeHeader from '../../HomePage/HomeHeader'; // LAY GIAO DIEN
 import './DetailDoctor.scss';
 import { getDetailInforDoctor } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
-import DoctorSchedule from './DoctorSchedule';
+import DoctorSchedule from './DoctorSchedule'; 
 
 class DetailDoctor extends Component {
      
