@@ -4,7 +4,8 @@ export const path = {
     LOGIN: '/login', // DUONG LINK HIEN THI TOI FILE
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_DOCTOR: '/detail-doctor/:id' // DUONG LINK TOI TRANG CHI TIET BAC SI
+    DETAIL_DOCTOR: '/detail-doctor/:id' ,// DUONG LINK TOI TRANG CHI TIET BAC SI
+    VERIFY_EMAIL_BOOKING : '/verify-booking' // DUONG LINK XAC NHAN CHUYEN TU DANG KI (S1) => SANG DA XAC NHAN (S2)
 };
 
 export const LANGUAGES = {

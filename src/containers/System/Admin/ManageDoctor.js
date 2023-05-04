@@ -187,7 +187,7 @@ class ManageDoctor extends Component {
 
 // THEM THONG TIN
                 selectedPrice: this.state.selectedPrice.value,
-                selectedPayment: this.state.selectedPrice.value,
+                selectedPayment: this.state.selectedPayment.value,
                 selectProvince: this.state.selectProvince.value,
                 nameClinic: this.state.nameClinic,
                 addressClinic: this.state.addressClinic,
@@ -201,17 +201,59 @@ class ManageDoctor extends Component {
 
     // console.log ('selectedOption  : ', selectedOption )
     this.setState({ selectedOption } );
+    let {listPayment, listPrice, listProvince} = this.state;
 
     // HAM LAY GIA TRI SELECT MINH CHON ( TEN BAC SI )
     let res = await getDetailInforDoctor (selectedOption.value)
     if ( res && res.data.errCode === 0 && res.data.data  && res.data.data.Markdown){
         let markdown = res.data.data.Markdown;
+ 
+        // Lay thong tin chi tiet bac si 
+        // =>  
+        let addressClinic = '', nameClinic = '', note = '',
+        paymentId = '', priceId = '', provinceId = '',
+        selectedPayment = '', selectedPrice = '' , selectProvince = '';
+
+        if(res.data.data.Doctor_Infor){
+            addressClinic = res.data.data.Doctor_Infor.addressClinic;
+            nameClinic = res.data.data.Doctor_Infor.nameClinic;
+            note = res.data.data.Doctor_Infor.note;
+
+            // GAN GIA TRI
+            paymentId = res.data.data.Doctor_Infor.paymentId;
+            priceId = res.data.data.Doctor_Infor.priceId;
+            provinceId = res.data.data.Doctor_Infor.provinceId;
+
+            // Ham lay gia tri ( phuong thuc thanh toan ) => Trong database
+             selectedPayment = listPayment.find (item => {
+                return item && item.value === paymentId
+             })
+              // Ham lay gia tri ( Gia ) => Trong database
+             selectedPrice = listPrice.find (item => {
+                return item && item.value === priceId
+             })
+              // Ham lay gia tri ( tinh thanh ) => Trong database
+             selectProvince = listProvince.find (item => {
+                return item && item.value === provinceId
+             }) 
+        }
+
+
+
+
         this.setState ({
             contentHTML: markdown.contentHTML,
             contentMarkdown: markdown.contentMarkdown,
             description: markdown.description, 
             //  MAC DINH DE BIEN DA CO GIA TRI => bac si do da co thong tin mieu ta hay chua
-            hasOldData : true 
+            hasOldData : true ,
+
+            addressClinic: addressClinic,
+            nameClinic: nameClinic,
+            note: note,
+            selectedPayment:selectedPayment,
+            selectedPrice: selectedPrice,
+            selectProvince: selectProvince,
         })
     }else {
         this.setState ({
@@ -219,7 +261,11 @@ class ManageDoctor extends Component {
             contentMarkdown: '',
             description: '', 
             //  MAC DINH DE BIEN DA CO GIA TRI => bac si do da co thong tin mieu ta hay chua
-            hasOldData : false
+            hasOldData : false,
+
+            addressClinic: '',
+            nameClinic: '',
+            note: ''
         })
     }
     console.log ('selectedOption: ======== ', res.data.data )
@@ -249,7 +295,7 @@ class ManageDoctor extends Component {
     render() {   
         // Xem nguoi dung da co thong tin hay chua
         let {hasOldData} = this.state;
-        console.log ('HOI DAN IT: ', this.state)
+        console.log ('STATE : ', this.state)
 
         return ( 
             
