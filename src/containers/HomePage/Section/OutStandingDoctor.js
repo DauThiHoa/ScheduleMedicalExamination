@@ -29,8 +29,8 @@ class OutStandingDoctor extends Component {
 
         this.props.loadTopDoctors();
     }
-    handleViewDetailDoctor = ( doctor ) => {
-        console.log ( ' handleViewDetailDoctor : ', doctor)
+
+    handleViewDetailDoctor = ( doctor ) => { 
 
         if (this.props.history) {
         // CHUYEN SANG TRANG CHI TIET NGUOI DUNG => CHUC VU : BAC SI 
@@ -72,7 +72,8 @@ class OutStandingDoctor extends Component {
                                     let nameEn = `${item.positionData.valueEn}, ${item.lastName} ${item.firstName}  `;
                                     return (
                                          
-                                <div className="section-customize" key= {index} onClick={() => this.handleViewDetailDoctor (item)} >
+                                <div className="section-customize" key= {index} 
+                                onClick={() => this.handleViewDetailDoctor (item)} >
                                
                                 <div className="customize-border">
                                     <div className="outer-bg">

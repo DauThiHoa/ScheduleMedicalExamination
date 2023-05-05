@@ -72,7 +72,7 @@ class DoctorSchedule extends Component {
     async  componentDidUpdate ( prevProps, prevState , snapshot) {
         if (this.props.language !== prevProps.language){  
             let allDays = this.getArrDays(this.props.language);
-            console.log ('HOI DAN IT :allDays ',allDays )
+            console.log ('allDays ',allDays )
             this.setState ({
                 allDays : allDays
             })
