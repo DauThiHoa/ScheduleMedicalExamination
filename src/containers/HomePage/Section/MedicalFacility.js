@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './MedicalFacility.scss';
-import { FormattedMessage } from 'react-intl';
+import './MedicalFacility.scss'; 
 import Slider from 'react-slick';
 
 class MedicalFacility extends Component {

@@ -77,6 +77,14 @@ handleShowHidePassword = () => {
         isShowPassword: !this.state.isShowPassword
     })
 }
+handleKeyDown = (event) => {
+    console.log ('Hoi danIt channel check KeyDown : ' , event)
+    if (event.key === 'Enter'){
+       this.handleLogin ();
+    }
+
+}
+
 // HAM HIEN THI FORM => LOGIN LEN MAN HINH
     render() { 
   // => viet theo JSX
@@ -91,7 +99,8 @@ handleShowHidePassword = () => {
                             // HIEN THI GIA TRI USER NAME LEN FROM LOGIN
                             value={this.state.username} // MAC DINH TRONG FORM INPUT
                             // TAO HAM => THAY DOI GIA TRI KHI NHAP VAO FORM INPUT
-                            onChange={(event) => this.handleOnChangeUsername(event)}
+                           
+                            onkeyDown= {(event) => this.handleShowHidePassword ()}
                             type="text"
                             className="form-control"
                             placeholder="Enter your username"></input>
@@ -107,6 +116,8 @@ handleShowHidePassword = () => {
                               value={this.state.password} // MAC DINH TRONG FORM INPUT
                               // TAO HAM => THAY DOI GIA TRI KHI NHAP VAO FORM INPUT
                               onChange={(event) => this.handleOnChangePassword(event)}
+                              onKeyDown={ (event) => this.handleKeyDown (event)}
+
                             //    Check dieu kien => true (text) => false (password)
                              type={this.state.isShowPassword ? 'text' : 'password'} className="form-control"  placeholder='Enter your password'></input>
                             {/* SHOW PASSWORD - DISPLAY PASSWORD  */}

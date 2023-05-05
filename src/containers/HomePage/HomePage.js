@@ -16,18 +16,24 @@ import "slick-carousel/slick/slick.css";
 
 class HomePage extends Component {
 
+    // handleAfterChange = (index, dontAnimate) => {
+    //     console.log ('handleAfterChange : ' , index )
+
+    // }
+
     render() {
         let settings = {
             dots: false,
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
+            // slickGoTo: this.handleAfterChange
 
         };
         return (
             <div>
-                <HomeHeader />
+                <HomeHeader isShowBanner ={true} />
                 <Specialty
                     settings={settings} />
                 <MedicalFacility
