@@ -35,7 +35,59 @@ class DetailSpecialty extends Component {
             let resProvince = await getAllCodeService ('PROVINCE');
              
             // Them cac bac si thuoc chuyen khoa rieng
-            if ( res.data && res.data.errCode === 0  && resProvince.data.errCode === 0){
+            if ( res.data && res.data.errCode === 0){
+                let data = res.data.data;
+                let arrDoctorId = [];
+
+                if (data && !_.isEmpty (res.data)){
+                    let arr = data.doctorSpecialty;
+                    if (arr && arr.length > 0){
+                        arr.map (item => {
+                            arrDoctorId.push(item.doctorId)
+                        })
+                    }
+                }
+
+                let dataProvince = resProvince.data ; 
+                if (dataProvince && dataProvince.length >0 ){
+                    dataProvince.unshift ({
+                        createdAt : null,
+                        keyMap: 'ALL',
+                        type: 'PROVINCE',
+                        valueEn: 'ALL',
+                        valueVn: 'Toàn quốc'
+                    })
+                }
+
+
+                this.setState ({
+                    dataDetailSpecialty: res.data.data, 
+                    arrDoctorId: arrDoctorId,
+                    listProvince: dataProvince.data ? dataProvince.data : [], 
+                })
+            } 
+
+        }
+
+    }
+ 
+
+    // search bac si theo dia chi lam viec
+    handleOnChangeSelect = async ( event ) => {
+
+        console.log ('handleOnChangeSelect : ', event.target.value);
+
+        if ( this.props.match && this.props.match.params && this.props.match.params.id){
+            let id =  this.props.match.params.id;
+            let location =  event.target.value;
+
+            let res = await getAllDetailSpecialtyById ({
+                id: id, 
+                location: location
+            }); 
+             
+            // Them cac bac si thuoc chuyen khoa rieng
+            if ( res.data && res.data.errCode === 0 ){
                 let data = res.data.data;
                 let arrDoctorId = [];
                 if (data && !_.isEmpty (res.data)){
@@ -46,11 +98,10 @@ class DetailSpecialty extends Component {
                         })
                     }
                 }
-
+ 
                 this.setState ({
                     dataDetailSpecialty: res.data.data, 
-                    arrDoctorId: arrDoctorId,
-                    listProvince: resProvince.data.data, 
+                    arrDoctorId: arrDoctorId, 
                 })
             } 
 
@@ -64,17 +115,12 @@ class DetailSpecialty extends Component {
            
         }
        
-    } 
+    }  
 
-    // search bac si theo dia chi lam viec
-    handleOnChangeSelect = ( event ) => {
-
-        console.log ('----------->' , event.target.value);
-    }
-
-    render() { 
+    render() {
            let {arrDoctorId, dataDetailSpecialty, listProvince} = this.state;  
-           console.log ('getAllDetailSpecialtyById : ', this.state)
+           console.log ('listProvince : ', listProvince )
+
            let {language} = this.props;
 
         return (
@@ -95,24 +141,24 @@ class DetailSpecialty extends Component {
             {/* NOI LAM VIEC CUA CAC BAC SI */}
             <div className='search-sp-doctor'>
                      
-                <select onChange={(event) => this.handleOnChangeSelect(event)}>
+                <select 
+                onChange={(event) => this.handleOnChangeSelect(event)}
+                >
                     {listProvince && listProvince.length > 0 &&
                     listProvince.map ((item, index) => {
                         return (
                             <option key={index} value={item.keyMap}>
                                 {language === LANGUAGES.VI ? 
-                                item.valueVn : item.valueEn}
+                                item.valueVn : item.valueEn}  
                             </option>
                         )
-                    })}
+                    })
+                    }
  
                 </select>
 
             </div>
- 
-             <div className='doctor-extra-infor-container'>
-                  DetailSpecialty
-             </div>
+  
                 {arrDoctorId && arrDoctorId.length > 0 &&
                 arrDoctorId.map ((item, index) => {
                     return (
@@ -123,6 +169,8 @@ class DetailSpecialty extends Component {
                             <ProfileDoctor
                             doctorId = {item}
                             isShowDescriptionDoctor = {true}
+                            isShowLinkDetail = {true}
+                            isShowPrice = {false}
                             // dataTime = {dataTime}
                             />
                                 </div>
