@@ -8,6 +8,7 @@ import { LANGUAGES } from '../../../utils';
 import NumberFormat from 'react-number-format';
 import _ from 'lodash';
 import moment, { months } from 'moment';
+import { Link } from 'react-router-dom';
 
 class ProfileDoctor extends Component {
      
@@ -74,8 +75,10 @@ class ProfileDoctor extends Component {
     }
     render() {  
         let {dataProfile} = this.state; 
-        let {language, isShowDescriptionDoctor, dataTime} = this.props;
-
+        let {language, isShowDescriptionDoctor,
+             dataTime, isShowLinkDetail,
+             isShowPrice , doctorId} = this.props;
+  
         console.log ('STATE : ' , dataTime)
          let nameVi ='', nameEn ='';
        
@@ -123,6 +126,14 @@ class ProfileDoctor extends Component {
  
              </div>
 
+             {isShowLinkDetail === true && 
+                <div className='view-detail-doctor'>
+                    <Link to={`/detail-doctor/${doctorId}`}>Xem Thêm </Link> 
+                </div>
+                }
+
+
+             { isShowPrice === true &&
              <div className='price'>
              <FormattedMessage id='patient.booking-modal.price'/>
 
@@ -149,6 +160,7 @@ class ProfileDoctor extends Component {
         />
     }
             </div>
+    }
 
             </div>
              

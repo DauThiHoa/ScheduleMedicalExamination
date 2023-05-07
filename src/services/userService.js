@@ -79,8 +79,35 @@ const createNewSpecialty = (data) => {
 // Lay tat ca cac thong tin chuyen khoa
 const getAllSpecialty = (doctorId) => {
     return axios.get (`/api/get-all-specialty`)
+} 
+// Lay thong tin chi tiet cua 1 chuyen khoa
+const getAllDetailSpecialtyById = (data) => {
+    return axios.get (`api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`)
 }
 
+// Luu thong tin phong kham
+const createNewClinic = (data) => {
+    return axios.post (`/api/create-new-clinic`, data)
+}
+
+// Lay tat ca cac thong tin phong kham
+const getAllClinic = () => {
+    return axios.get (`/api/get-all-clinic`)
+} 
+// Lay thong tin chi tiet cua 1 phong kham
+const getAllDetailClinicById = (data) => {
+    return axios.get (`api/get-detail-clinic-by-id?id=${data.id}`)
+}
+
+// Lay thong tin chi tiet cua 1 phong kham
+const getAllPatientForDoctor = (data) => {
+    return axios.get (`api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
+}
+
+// Gui hoa don
+const postSendRemedy = (data) => {
+    return axios.post (`/api/send-remedy`, data)
+}
 
 export {
     handleLoginApi,
@@ -92,5 +119,8 @@ export {
     getScheduleDoctorByDate,getExtraInforDoctorById,
     getProfileDoctorById,postPatientBookAppointment,
     postVerifyBookAppointment,createNewSpecialty,
-    getAllSpecialty,
+    getAllSpecialty,getAllDetailSpecialtyById, 
+    createNewClinic, getAllClinic, getAllDetailClinicById,
+    getAllPatientForDoctor,postSendRemedy,
+
 }

@@ -38,7 +38,8 @@
             "handbook" : "Handbook"
         } ,
         "doctor": {
-            "manage-schedule": "Manage Doctor's Schedule" 
+            "manage-schedule": "Manage Doctor's Schedule" ,
+            "manage-patient": "Manage Patient's Schedule"
         }
     } ,
     "manage-user" : {
@@ -108,7 +109,9 @@
             "province" : "Province",
             "nameClinic" : "Clinic's name",
             "addressClinic" : "Clinic's address" ,
-            "note" : "Note"
+            "note" : "Note",
+            "specialty" : "Select Specialty",
+            "select-clinic" : "Clinic"
         }
     }
 }

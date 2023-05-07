@@ -23,6 +23,8 @@ import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import CustomScrollbars from '../components/CustomScrollbars';
 import Doctor from '../routes/Doctor';
 import VerifyEmail from './Patient/VerifyEmail';
+import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
+import DetailClinic from './Patient/Clinic/DetailClinic';
 
 class App extends Component {
 
@@ -65,6 +67,11 @@ class App extends Component {
                                  
                                 {/* link den thong tin chi tiet cua bac si => Them Id*/}
                                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
+
+                                <Route path={path.DETAIL_SPCIALTY} component={DetailSpecialty} />
+                                {/* LINK CHI TIET PHONG KHAM */}
+                                <Route path={path.DETAIL_CLINIC} component={DetailClinic} />
+
                                 <Route path={'/doctor'} component={userIsAuthenticated(Doctor)} />
                                  
                                  {/* LINK XAC NHAN DAT LICH KHAM BENH */}

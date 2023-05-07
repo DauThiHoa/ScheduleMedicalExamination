@@ -214,6 +214,7 @@ class ManageSchedule extends Component {
                         </div>
                         <div className='col-6 form-group' >
                             <label> < FormattedMessage id='manage-schedule.choose-date'/></label>
+                        
                             <DatePicker
                                  onChange= {this.handleOnChangeDatePicker}
                                  className= "form-control"

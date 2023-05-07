@@ -8,7 +8,7 @@ class About extends Component {
         return (
             <div className="section-share section-about">
                 <div className=" section-about-header">
-                    Truyền thông nói về Channel Hỏi Dân IT
+                    Truyền thông nói về Channel 
                 </div>
                 <div className=" section-about-content">
                     <div className="content-left">

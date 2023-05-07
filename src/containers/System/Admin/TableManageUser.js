@@ -53,8 +53,8 @@ handleEditUser = (user) => {
 }
 
     render() { 
-            console.log ( 'Hoi Dan It Check Users : ' + this.props.listUsers)
-            console.log ( 'Hoi Dan It Check Users1 : ' + this.props.userRedux)
+            console.log ( 'Check Users : ' + this.props.listUsers)
+            console.log ( 'Check Users1 : ' + this.props.userRedux)
             let arrUsers = this.state.userRedux;
 
         return ( 

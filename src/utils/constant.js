@@ -5,6 +5,8 @@ export const path = {
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     DETAIL_DOCTOR: '/detail-doctor/:id' ,// DUONG LINK TOI TRANG CHI TIET BAC SI
+    DETAIL_SPCIALTY: '/detail-specialty/:id' ,
+    DETAIL_CLINIC: '/detail-clinic/:id' ,
     VERIFY_EMAIL_BOOKING : '/verify-booking' // DUONG LINK XAC NHAN CHUYEN TU DANG KI (S1) => SANG DA XAC NHAN (S2)
 };
 

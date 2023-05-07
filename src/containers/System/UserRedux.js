@@ -190,7 +190,7 @@ class UserRedux extends Component {
         //     this.props.fetchUserRedux ();
         // }, 1000)
          
-        console.log ( 'hoi dan it vheck : ' + this.state);
+        console.log ( 'check : ' + this.state);
     }
 
     // CHECK KIEM TRA XEM CO DIEN DUNG GIA TRI VAO FORM INPUT HAY KHONG
@@ -230,7 +230,7 @@ class UserRedux extends Component {
             // setImage (imageBase64)
         } 
 
-        console.log ('hoi dan it check from : ' , user)
+        console.log (' check from : ' , user)
 
         this.setState ({ 
             email: user.email,
@@ -265,7 +265,7 @@ class UserRedux extends Component {
         return (
             <div className='user-redux-container'>
                 <div className='title'>
-                     Learn React-Redux với "Hỏi Dân It" Youtube Channel
+                      
                 </div>
                  <div className="user-redux-body" >
                     <div className='container'>

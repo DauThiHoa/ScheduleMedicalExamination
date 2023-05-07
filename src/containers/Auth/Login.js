@@ -77,8 +77,7 @@ handleShowHidePassword = () => {
         isShowPassword: !this.state.isShowPassword
     })
 }
-handleKeyDown = (event) => {
-    console.log ('Hoi danIt channel check KeyDown : ' , event)
+handleKeyDown = (event) => { 
     if (event.key === 'Enter'){
        this.handleLogin ();
     }
@@ -92,18 +91,28 @@ handleKeyDown = (event) => {
             <div className="login-background">
                 <div className="login-container">
                     <div className="login-content row">
-                        <div className="col-12 text-login">LOGIN</div>
+
+                        <div className="col-12 text-login">
+                                LOGIN 
+                            </div>
+
                         <div className="col-12 form-group login-input">
                             <label>Username: </label>
+                            
                             <input  
                             // HIEN THI GIA TRI USER NAME LEN FROM LOGIN
-                            value={this.state.username} // MAC DINH TRONG FORM INPUT
+
+                            value={this.state.username} 
+                            // MAC DINH TRONG FORM INPUT
                             // TAO HAM => THAY DOI GIA TRI KHI NHAP VAO FORM INPUT
                            
-                            onkeyDown= {(event) => this.handleShowHidePassword ()}
+                            onChange= {(event) => this.handleOnChangeUsername (event)}
                             type="text"
                             className="form-control"
-                            placeholder="Enter your username"></input>
+                            placeholder="Enter your username"
+                            
+                            />
+ 
                         </div>
 
                         <div className="col-12 form-group login-input">
@@ -119,7 +128,12 @@ handleKeyDown = (event) => {
                               onKeyDown={ (event) => this.handleKeyDown (event)}
 
                             //    Check dieu kien => true (text) => false (password)
-                             type={this.state.isShowPassword ? 'text' : 'password'} className="form-control"  placeholder='Enter your password'></input>
+                             type={this.state.isShowPassword ? 'text' : 'password'} 
+                             className="form-control"  
+                             placeholder='Enter your password'
+                             
+                             />
+                                 
                             {/* SHOW PASSWORD - DISPLAY PASSWORD  */}
                             <span onClick={() => { this.handleShowHidePassword()}}>
                                 {/* <i class="fas fa-eye-slash"></i> */}
