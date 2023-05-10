@@ -53,7 +53,7 @@ class Login extends Component {
 
         const { adminLoginSuccess, adminLoginFail } = this.props;
         let loginBody = {
-            username: 'admin',
+            username: 'admin@gmail.com',
             password: '123456'
         }
         //sucess

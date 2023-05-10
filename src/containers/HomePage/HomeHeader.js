@@ -1,27 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './HomeHeader.scss';
-import logo from '../../assets/logo.svg';
+import logo from '../../assets/logo.png';
 import { FormattedMessage } from 'react-intl';
 import {LANGUAGES} from "../../utils";
 import {changeLanguageApp} from '../../store/actions'
-
+import { withRouter } from 'react-router';
 
 class HomeHeader extends Component {
  
     changeLanguage = (language) =>{
-this.props.changeLanguageAppRedux(language)
+        this.props.changeLanguageAppRedux(language)
         //fire redux event: actions
     }
+// Chuyen huong ve trang home
+    returnToHome = () => {
+        if (this.props.history) {
+            // CHUYEN SANG TRANG CHU
+            this.props.history.push (`/home`);
+            }
+    }
     render() {
-        let language = this.props.language;        
+        let language = this.props.language;     
+        console.log ('check userInfo : ' , this.props.userInfo)   
         return (
             <React.Fragment>
                 <div className="home-header-container">
                     <div className="home-header-content">
                         <div className="left-content">
                             <i className="fas fa-bars"></i>
-                            <img className="header-logo" src={logo}/>
+                            <img className="header-logo" src={logo}
+                            // Tao Ham => Dieu huong ve trang home
+                            onClick={ () => this.returnToHome()}
+                            />
                         </div>
                         <div className="center-content">
                             <div className="child-content">
@@ -52,7 +63,12 @@ this.props.changeLanguageAppRedux(language)
 
                     </div>
                 </div>
+
+
+                {this.props.isShowBanner === true && 
+                
                 <div className="home-header-banner">
+                    
                     <div className="content-up">
                         <div className="title1"><FormattedMessage id="banner.title1"/></div>
                         <div className="title2"><FormattedMessage id="banner.title2"/></div>
@@ -61,6 +77,7 @@ this.props.changeLanguageAppRedux(language)
                             <input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
                         </div>
                     </div>
+
                     <div className="content-down">
                         <div className="options">
                             <div className="option-child">
@@ -104,6 +121,7 @@ this.props.changeLanguageAppRedux(language)
                         </div>
                     </div>
                 </div>
+                }
             </React.Fragment>
         );
     }
@@ -113,6 +131,7 @@ this.props.changeLanguageAppRedux(language)
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
         language: state.app.language,
 // inject
     };
@@ -124,4 +143,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeHeader));
