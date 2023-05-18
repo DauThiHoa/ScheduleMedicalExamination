@@ -132,7 +132,7 @@ class ManageSpecialty extends Component {
                         
                         >
                             
-                            Save</button>
+                            Lưu</button>
 
                     </div>
  

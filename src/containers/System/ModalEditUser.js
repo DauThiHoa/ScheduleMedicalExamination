@@ -82,7 +82,7 @@ console.log('didmount edit modal: ', this.props.currentUser)
                 className={"model-user-container"}
                 size="lg"
             >
-                <ModalHeader toggle={() => { this.toggle() }}>Edit a new user</ModalHeader>
+                <ModalHeader toggle={() => { this.toggle() }}>Chỉnh sửa thông tin người dùng</ModalHeader>
                 <ModalBody>
                     <div className="model-user-body">
                         <div className="input-container">
@@ -95,7 +95,7 @@ console.log('didmount edit modal: ', this.props.currentUser)
                             />
                         </div>
                         <div className="input-container">
-                            <label>Password</label>
+                            <label>Mật khẩu</label>
                             <input type="password"
                                 onChange={(event) => { this.handleOnChageInput(event, "password") }}
                                 value={this.state.password} 
@@ -103,19 +103,19 @@ console.log('didmount edit modal: ', this.props.currentUser)
                                 />
                         </div>
                         <div className="input-container">
-                            <label>FirstName</label>
+                            <label>Họ người dùng</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "firstName") }}
                                 value={this.state.firstName} />
                         </div>
                         <div className="input-container">
-                            <label>LastName</label>
+                            <label>Tên người dùng</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "lastName") }}
                                 value={this.state.lastName} />
                         </div>
                         <div className="input-container max-width-input">
-                            <label>Address</label>
+                            <label>Địa chỉ</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "address") }}
                                 value={this.state.address} />
@@ -128,8 +128,8 @@ console.log('didmount edit modal: ', this.props.currentUser)
                         color="primary"
                         className="px-3"
                         onClick={() => { this.handleSaveUser() }}
-                    >Save Changes</Button>{' '}
-                    <Button color="secondary" className="px-3" onClick={() => { this.toggle() }}>Close</Button>
+                    >Lưu thay đổi</Button>{' '}
+                    <Button color="secondary" className="px-3" onClick={() => { this.toggle() }}>Thoát</Button>
                 </ModalFooter>
             </Modal>
         )

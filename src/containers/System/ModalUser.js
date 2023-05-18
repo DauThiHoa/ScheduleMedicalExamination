@@ -78,7 +78,7 @@ class ModalUser extends Component {
                 className={"model-user-container"}
                 size="lg"
             >
-                <ModalHeader toggle={() => { this.toggle() }}>Create a new user</ModalHeader>
+                <ModalHeader toggle={() => { this.toggle() }}>Thêm mới người dùng</ModalHeader>
                 <ModalBody>
                     <div className="model-user-body">
                         <div className="input-container">
@@ -90,25 +90,25 @@ class ModalUser extends Component {
                             />
                         </div>
                         <div className="input-container">
-                            <label>Password</label>
+                            <label>Mật khẩu</label>
                             <input type="password"
                                 onChange={(event) => { this.handleOnChageInput(event, "password") }}
                                 value={this.state.password} />
                         </div>
                         <div className="input-container">
-                            <label>FirstName</label>
+                            <label>Tên người dùng</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "firstName") }}
                                 value={this.state.firstName} />
                         </div>
                         <div className="input-container">
-                            <label>LastName</label>
+                            <label>Họ người dùng</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "lastName") }}
                                 value={this.state.lastName} />
                         </div>
                         <div className="input-container max-width-input">
-                            <label>Address</label>
+                            <label>Địa chỉ</label>
                             <input type="text"
                                 onChange={(event) => { this.handleOnChageInput(event, "address") }}
                                 value={this.state.address} />
@@ -121,8 +121,8 @@ class ModalUser extends Component {
                         color="primary"
                         className="px-3"
                         onClick={() => { this.handleAddNewUser() }}
-                    >Add New</Button>{' '}
-                    <Button color="secondary" className="px-3" onClick={() => { this.toggle() }}>Close</Button>
+                    >Thêm</Button>{' '}
+                    <Button color="secondary" className="px-3" onClick={() => { this.toggle() }}>Thoát</Button>
                 </ModalFooter>
             </Modal>
         )

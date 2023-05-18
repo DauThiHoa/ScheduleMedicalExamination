@@ -126,12 +126,12 @@ class UserManage extends Component {
                 />
                 }
                 
-                <div className="title text-center"> Manage users with Eric</div>
+                <div className="title text-center"> Thêm người dùng </div>
                 <div className="mx-1">
                     <button
                         className="btn-btn-primary px-3"
                         onClick={() => this.handleAddNewUser()}
-                    ><i className='fas fa-plus'></i> Add new users</button>
+                    ><i className='fas fa-plus'></i> Thêm người dùng mới</button>
 
                 </div>
                 <div className="users-table mt-3 mx-1">
@@ -140,10 +140,10 @@ class UserManage extends Component {
 
                             <tr>
                                 <th>Email</th>
-                                <th>Frist name</th>
-                                <th>Last name</th>
-                                <th>Address</th>
-                                <th>Actions</th>
+                                <th>Tên người dùng</th>
+                                <th>Họ người dùng</th>
+                                <th>Địa chỉ</th>
+                                <th></th>
                             </tr>
                             {arrUsers && arrUsers.map((item, index) => {
                                 return (
