@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { FormattedMessage } from 'react-intl'; 
 import './ManagePatient.scss';
 import DatePicker from '../../../components/Input/DatePicker';
-import { getAllPatientForDoctor , postSendRemedy} from '../../../services/userService';
+import { getAllPatientForDoctor ,postDeletePatientForDoctor, postSendRemedy} from '../../../services/userService';
 import moment from 'moment';
 import { LANGUAGES } from '../../../utils';
 import RemedyModal from './RemedyModal';
@@ -32,14 +32,14 @@ class ManagePatient extends Component {
 
     getDataPatient = async ( ) => {
         let {user} = this.props;
-       let {currentDate} = this.state;
+        let {currentDate} = this.state;
         
-       let formatedDate = new Date ( currentDate) .getTime ();
+        let formatedDate = new Date ( currentDate) .getTime ();
 
         let res = await getAllPatientForDoctor ({
             doctorId : user.id,
             date : formatedDate
-       })
+       }) 
        if ( res.data && res.data.errCode === 0){
         this.setState ({
             dataPatient: res.data.data
@@ -58,7 +58,7 @@ class ManagePatient extends Component {
         this.setState ({ 
             currentDate: date[0]
         },async () => { 
-           await this. getDataPatient ();
+           await this. getDataPatient (); 
         })
 
         console.log ('handleOnChangeDatePicker : ', date)
@@ -83,9 +83,27 @@ class ManagePatient extends Component {
 
       }
 
-      handleBtnRemedy = () =>{
+      handleBtnDelete = async (item) =>{ 
+
+        let {currentDate} = this.state;
         
+        let formatedDate = new Date ( currentDate ) .getTime ();
+
+        console.log ('formatedDate: ' + formatedDate + 'doctorId : '+ item.doctorId + 'patientId: ' + item.patientId);
+
+        let res = await postDeletePatientForDoctor  ({
+            doctorId : item.doctorId,
+            patientId : item.patientId, 
+            date : formatedDate
+       }) 
+       if ( res.data && res.data.errCode === 0){
+            toast.success ('Delete booking a new appointment succeed!')
+       } else {
+            toast.error ('Delete booking a new appointment error!')
+       }
+
       }
+
 
 // Close Modal
 closeRemedyModal = () =>{
@@ -189,8 +207,8 @@ closeRemedyModal = () =>{
                                             <td>{gender}</td>
 
                                             <td>
-                                                <button className='mp-btn-confirm' onClick={() => this.handleBtnConfirm (item)}>Xác nhận</button>
-                                                <button className='mp-btn-remedy' onClick={() => this.handleBtnRemedy ()}>Gửi hóa đơn</button>
+                                                <button className='mp-btn-confirm' onClick={() => this.handleBtnConfirm (item)}>Gửi hóa đơn</button>
+                                                <button className='mp-btn-remedy' onClick={() => this.handleBtnDelete (item)}>Hủy</button>
                                             </td>
                                         </tr>
  

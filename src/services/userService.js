@@ -99,9 +99,14 @@ const getAllDetailClinicById = (data) => {
     return axios.get (`api/get-detail-clinic-by-id?id=${data.id}`)
 }
 
-// Lay thong tin chi tiet cua 1 phong kham
+// Lay thong tin chi tiet cua 1 dat lich
 const getAllPatientForDoctor = (data) => {
     return axios.get (`api/get-list-patient-for-doctor?doctorId=${data.doctorId}&date=${data.date}`)
+}
+
+// Lay thong tin chi tiet cua 1 phong kham
+const postDeletePatientForDoctor = (data) => {
+    return axios.post (`/api/post-delete-patient-for-doctor?doctorId=${data.doctorId}&patientId=${data.patientId}&date=${data.date}`)
 }
 
 // Gui hoa don
@@ -122,5 +127,6 @@ export {
     getAllSpecialty,getAllDetailSpecialtyById, 
     createNewClinic, getAllClinic, getAllDetailClinicById,
     getAllPatientForDoctor,postSendRemedy,
+    postDeletePatientForDoctor,
 
 }

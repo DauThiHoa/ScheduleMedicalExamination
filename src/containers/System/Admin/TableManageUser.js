@@ -65,10 +65,10 @@ handleEditUser = (user) => {
 
                             <tr>
                                 <th>Email</th>
-                                <th>Frist name</th>
-                                <th>Last name</th>
-                                <th>Address</th>
-                                <th>Actions</th>
+                                <th>Họ người dùng</th>
+                                <th>Tên người dùng</th>
+                                <th>Địa chỉ</th>
+                                <th></th>
                             </tr>
                            { arrUsers && arrUsers.length > 0 &&
                            

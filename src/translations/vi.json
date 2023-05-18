@@ -99,7 +99,7 @@
             "price":"Giá khám : "
         }
     },
-    "admin" : {
+    "admin" : { 
         "manage-doctor": {
             "title" : "Tạo thêm thông tin doctors",
             "select-doctor" :"Chọn bác sĩ",
