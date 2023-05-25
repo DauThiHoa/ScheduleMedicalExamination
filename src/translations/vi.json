@@ -42,7 +42,7 @@
             "manage-schedule": "Quản lý kế hoạch khám bệnh",
             "manage-patient": "Quản lý bệnh nhân khám bệnh"
         }
-    },
+    }, 
     "manage-user" : {
             "add" : "Thêm mới người dùng",
             "email" : "Email",

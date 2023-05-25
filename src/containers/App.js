@@ -19,6 +19,7 @@ import System from '../routes/System';
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import HomePage from './HomePage/HomePage.js';
+import Register from './Auth/Register';
 import DetailDoctor from './Patient/Doctor/DetailDoctor';
 import CustomScrollbars from '../components/CustomScrollbars';
 import Doctor from '../routes/Doctor';
@@ -56,7 +57,7 @@ class App extends Component {
                         {/* {this.props.isLoggedIn && <Header />} */}
                         <span className="content-container">
                             <CustomScrollbars style={{height: '100vh', width: '100%'}}>
-                            <Switch>
+                            <Switch> Register
                                 {/* NEU KHONG LOGIN => TRUE => TRANG HOME */}
                                 <Route path={path.HOME} exact component={(Home)} />
                                 {/* KIEM TRA FROM DANG NHAP */}
@@ -65,6 +66,8 @@ class App extends Component {
                                 <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 <Route path={path.HOMEPAGE} component={HomePage} />
                                  
+                                <Route path={path.REGISTER} component={Register} />
+
                                 {/* link den thong tin chi tiet cua bac si => Them Id*/}
                                 <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
 

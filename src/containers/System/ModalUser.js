@@ -68,6 +68,8 @@ class ModalUser extends Component {
         }
 
     }
+    
+
     render() {
         // console.log('check child props', this.props);
         // console.log('check child open modal', this.props.isOpen);
@@ -78,7 +80,7 @@ class ModalUser extends Component {
                 className={"model-user-container"}
                 size="lg"
             >
-                <ModalHeader toggle={() => { this.toggle() }}>Thêm mới người dùng</ModalHeader>
+                <ModalHeader toggle={() => { this.toggle() }}>Thêm mới người dùng kkkkkkkkkkkkkkkkkkkkk</ModalHeader>
                 <ModalBody>
                     <div className="model-user-body">
                         <div className="input-container">
@@ -117,12 +119,14 @@ class ModalUser extends Component {
 
                 </ModalBody>
                 <ModalFooter>
+                  
                     <Button
                         color="primary"
                         className="px-3"
                         onClick={() => { this.handleAddNewUser() }}
                     >Thêm</Button>{' '}
                     <Button color="secondary" className="px-3" onClick={() => { this.toggle() }}>Thoát</Button>
+               
                 </ModalFooter>
             </Modal>
         )
