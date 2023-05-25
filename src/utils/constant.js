@@ -2,6 +2,7 @@ export const path = {
     HOME: '/',
     HOMEPAGE: '/home',
     LOGIN: '/login', // DUONG LINK HIEN THI TOI FILE
+    REGISTER: '/register',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     DETAIL_DOCTOR: '/detail-doctor/:id' ,// DUONG LINK TOI TRANG CHI TIET BAC SI

@@ -101,7 +101,7 @@ class UserManage extends Component {
     /** life cycle
      * Run component
      * 1. Run construct -> init state
-     * 2. Did mount (set state):born: unmount
+     * 2. Did mount (set state):born: ucreateNewUsernmount
      * 3. Render(re-render)
     */
 
@@ -134,6 +134,7 @@ class UserManage extends Component {
                     ><i className='fas fa-plus'></i> Thêm người dùng mới</button>
 
                 </div>
+
                 <div className="users-table mt-3 mx-1">
                     <table id="customers">
                         <tbody>
@@ -163,6 +164,7 @@ class UserManage extends Component {
 
                         </tbody>
                     </table>
+               
                 </div>
             </div >
         );

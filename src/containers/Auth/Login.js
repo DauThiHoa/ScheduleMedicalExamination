@@ -152,9 +152,12 @@ handleKeyDown = (event) => {
                             {/* TAO HAM handleLogin => LAY GIA TRI TRONG FORM INPUT*/}
                         <button className="btn-login" onClick={() => {this.handleLogin()}}>Login</button>
                         </div>
-                        <div className="col-12">
-                            <span className="forgot-password">Forgot your password</span>
+
+                        <div className="col-12 social-login"> 
+                                     <span className="forgot-password" >Forgot your password</span>   
+                                     
                         </div>
+                      
                         <div className="col-12 text-center mt-3">
                             <span className="text-other-login">Or Login With: </span>
                         </div>
@@ -162,6 +165,13 @@ handleKeyDown = (event) => {
                         <div className="col-12 social-login">
                                 <i className="fab fa-google-plus-g google"></i>
                                 <i className="fab fa-facebook-f facebook"></i>
+                        </div>
+
+                        <div className="col-12 social-login">  
+                                       
+                                     <span className="forgot-password" >Do not have an account ?<a href="/register">Sign up now</a></span>  
+                                    
+                                         
                         </div>
                     </div>
                 </div>
